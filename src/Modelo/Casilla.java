@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class Casilla {
 
-    Boolean descubierto;
-    Boolean bomba;
-    Boolean bandera;
-    int radar;
-    int posicionX;
-    int posicionY;
+    private Boolean descubierto;
+    private Boolean bomba;
+    private Boolean bandera;
+    private int radar;
+    private int posicionX;
+    private int posicionY;
 
     public Casilla(Boolean descubierto, Boolean bomba, int etiqueta, int posicionX, int posicionY) {
         this.descubierto = descubierto;

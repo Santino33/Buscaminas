@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class Tablero {
     private Casilla[][] tablero;
-    int numeroMinas;
-    int casillasPorDescubrir;
-    int rows;
-    int cols;
-    ArrayList<Casilla> casillasBomba;
+    private int numeroMinas;
+    private int casillasPorDescubrir;
+    private int rows;
+    private int cols;
+    private ArrayList<Casilla> casillasBomba;
 
     public Tablero(int rows,int cols, int numeroMinas) {
         this.tablero = new Casilla[rows][cols];

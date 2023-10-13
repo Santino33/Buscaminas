@@ -3,10 +3,7 @@ package Controlador;
 import Modelo.Buscaminas;
 import Modelo.Casilla;
 import Modelo.Tablero;
-import Vista.BarraDeMenu;
-import Vista.Boton;
-import Vista.SwingVista;
-import Vista.VentanaFin;
+import Vista.*;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -17,6 +14,7 @@ public class Control implements ActionListener, MouseListener {
     private SwingVista vista;
     private VentanaFin ventanaFin;
     private BarraDeMenu barraDeMenu;
+    private Ayuda instrucciones;
     private Buscaminas modelo;
 
     public Control() {
@@ -28,6 +26,7 @@ public class Control implements ActionListener, MouseListener {
         this.vista = new SwingVista(dificultad);
         this.barraDeMenu = (BarraDeMenu) vista.getBarraDeMenu();
         this.ventanaFin = new VentanaFin();
+        this.instrucciones = new Ayuda();
         modelo.getTablero().llenarTablero();
         asignarCasillasBomba();
         agregarListenersBotones();
@@ -40,6 +39,9 @@ public class Control implements ActionListener, MouseListener {
         barraDeMenu.getDificultadIntermedio().addActionListener(this);
         barraDeMenu.getDificultadDificil().addActionListener(this);
         barraDeMenu.getDificultadExperto().addActionListener(this);
+        barraDeMenu.getInstrucciones().addActionListener(this);
+        barraDeMenu.getCampoAbierto().addActionListener(this);
+        instrucciones.getCerrar().addActionListener(this);
     }
 
     private void agregarListenerVentanaFin() {
@@ -64,7 +66,6 @@ public class Control implements ActionListener, MouseListener {
     }
 
     private boolean evaluarVictoria() {
-        System.out.println("CP " + modelo.getTablero().getCasillasPorDescubrir() + " -- MN: " + modelo.getTablero().getNumeroMinas());
         return modelo.getTablero().getCasillasPorDescubrir() == modelo.getTablero().getNumeroMinas();
     }
 
@@ -127,24 +128,14 @@ public class Control implements ActionListener, MouseListener {
         String action = e.getActionCommand();
         //Acciones de la ventana del fin del juego
         switch (action) {
-            case "jugar" -> reiniciarPrograma(1);
+            case "jugar", "nuevoJuego" -> reiniciarPrograma(1);
             case "salir" -> System.exit(0);
             case "intermedio" -> reiniciarPrograma(1);
             case "dificil" -> reiniciarPrograma(2);
             case "experto" -> reiniciarPrograma(3);
+            case "instrucciones" ->instrucciones.setVisible();
+            case "cerrar-instrucciones" -> instrucciones.dispose();
         }
-        /*
-        if (e.getActionCommand().equals("jugar")) {
-            reiniciarPrograma();
-        }
-        if (e.getActionCommand().equals("salir")) System.exit(0);
-        //Acciones de la barra de menu
-
-        if (e.getActionCommand().equals("intermedio")){
-            reiniciarPrograma();
-            modelo.setDificultad(1);
-        }
-         */
     }
 
     @Override
