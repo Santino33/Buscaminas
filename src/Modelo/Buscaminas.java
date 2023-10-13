@@ -10,13 +10,13 @@ public class Buscaminas {
 
     public Buscaminas(int dificultad) {
         if (dificultad == 1){
-            this.tablero = new Tablero(8, 8, 10);
+            this.tablero = new Tablero(8, 8, 12);
         }
         if (dificultad == 2){
-            this.tablero = new Tablero(10, 10, 15);
+            this.tablero = new Tablero(12, 12, 30);
         }
         if (dificultad == 3){
-            this.tablero = new Tablero(12, 15, 25);
+            this.tablero = new Tablero(18, 15, 80);
         }
         this.dificultad = dificultad;
         this.victoria = false;

@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class SwingVista extends JFrame {
 
-    private int botonSize = 70;
-    private int numRows = 10;
-    int numCols = 10;
-    int boardWidth = numRows * botonSize;
-    int boardHeight = numCols * botonSize;
+    private int botonSize;
+    private int numRows;
+    private int numCols;
+    private int boardWidth;
+    private int boardHeight;
     private JLabel textLabel;
     private JPanel textPanel;
     private JPanel boardPanel;
@@ -18,7 +18,25 @@ public class SwingVista extends JFrame {
     private ArrayList<Boton> botonesBomba;
     private Boton[][] tablero;
 
-    public SwingVista(){
+    public SwingVista(int dificultad){
+        if (dificultad == 1){
+            this.numRows = 8;
+            this.numCols = 8;
+            this.botonSize = 70;
+        }
+        else if (dificultad == 2){
+            this.numRows = 12;
+            this.numCols = 12;
+            this.botonSize = 50;
+        }
+        else if (dificultad == 3){
+            this.numRows = 18;
+            this.numCols = 15;
+            this.botonSize = 30;
+        }
+
+        this.boardWidth = numRows * botonSize;
+        this.boardHeight = numCols * botonSize;
         tablero = new Boton[numRows][numCols];
         this.setSize(boardWidth, boardHeight);
         this.setJMenuBar(barraDeMenu = new BarraDeMenu());

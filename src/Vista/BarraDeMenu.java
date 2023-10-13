@@ -7,6 +7,8 @@ public class BarraDeMenu extends JMenuBar {
     JMenuItem nuevoJuego;
     JMenuItem pausa;
     JRadioButtonMenuItem dificultadIntermedio;
+    JRadioButtonMenuItem dificultadDificil;
+    JRadioButtonMenuItem dificultadExperto;
     public BarraDeMenu() {
         //Crear menu de ajustes
         menuJuego = new JMenu("Juego");
@@ -16,8 +18,12 @@ public class BarraDeMenu extends JMenuBar {
         // Crear los elementos de radio button para la dificultad
         dificultadIntermedio = new JRadioButtonMenuItem("Intermedio");
         dificultadIntermedio.setActionCommand("intermedio");
-        JRadioButtonMenuItem dificultadDificil = new JRadioButtonMenuItem("Dificil");
-        JRadioButtonMenuItem dificultadExperto = new JRadioButtonMenuItem("Experto");
+
+        dificultadDificil = new JRadioButtonMenuItem("Dificil");
+        dificultadDificil.setActionCommand("dificil");
+
+        dificultadExperto = new JRadioButtonMenuItem("Experto");
+        dificultadExperto.setActionCommand("experto");
 
         // Agrupar los elementos de radio button
         ButtonGroup grupoDificultad = new ButtonGroup();
@@ -56,5 +62,27 @@ public class BarraDeMenu extends JMenuBar {
 
     }
 
+    public JRadioButtonMenuItem getDificultadIntermedio() {
+        return dificultadIntermedio;
+    }
 
+    public void setDificultadIntermedio(JRadioButtonMenuItem dificultadIntermedio) {
+        this.dificultadIntermedio = dificultadIntermedio;
+    }
+
+    public JRadioButtonMenuItem getDificultadDificil() {
+        return dificultadDificil;
+    }
+
+    public void setDificultadDificil(JRadioButtonMenuItem dificultadDificil) {
+        this.dificultadDificil = dificultadDificil;
+    }
+
+    public JRadioButtonMenuItem getDificultadExperto() {
+        return dificultadExperto;
+    }
+
+    public void setDificultadExperto(JRadioButtonMenuItem dificultadExperto) {
+        this.dificultadExperto = dificultadExperto;
+    }
 }
