@@ -16,12 +16,14 @@ public class SwingVista extends JFrame {
     private JLabel textLabel;
     private JPanel textPanel;
     private JPanel boardPanel;
+    private JMenuBar barraDeMenu;
     private ArrayList<Boton> botonesBomba;
     private Boton[][] tablero;
 
     public SwingVista(){
         tablero = new Boton[numRows][numCols];
         this.setSize(boardWidth, boardHeight);
+        this.setJMenuBar(barraDeMenu = new BarraDeMenu());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,6 +50,7 @@ public class SwingVista extends JFrame {
         botonesBomba = new ArrayList<>();
     }
 
+
     public void crearBotones(){
         for (int i = 0; i < numRows; i++){
             for (int j = 0; j < numCols; j++){
@@ -60,24 +63,22 @@ public class SwingVista extends JFrame {
         }
     }
 
-    public void revelarCasilla(Casilla casilla){
-        Boton boton = tablero[casilla.getPosicionX()][casilla.getPosicionY()];
-        if (casilla.getBomba()){
-            boton.setText("💣");
-            boton.setBackground(Color.RED);
-            revelarBombas();
-        }
-        else if (!casilla.getBomba()){
-            boton.setText(""+casilla.getRadar());
-            boton.setBackground(Color.lightGray);
-        }
-    }
-
     public void revelarBoton(int posX, int posY, int radar){
         Boton botonPresionado = tablero[posX][posY];
         botonPresionado.setText(""+radar);
         botonPresionado.setBackground(Color.lightGray);
         botonPresionado.setEnabled(false);
+    }
+    public void ponerBandera(int posX, int posY){
+        Boton botonPresionado = tablero[posX][posY];
+        botonPresionado.setText("🚩");
+        botonPresionado.setBackground(Color.lightGray);
+    }
+    public void quitarBandera(int posX, int posY){
+        Boton botonPresionado = tablero[posX][posY];
+        botonPresionado.setText("❓");
+        botonPresionado.setBackground(Color.lightGray);
+
     }
 
     public void revelarBomba(int posX, int posY){
@@ -98,6 +99,47 @@ public class SwingVista extends JFrame {
     public void agregarBotonBomba(int posX, int posY){
         Boton botonBomba = tablero[posX][posY];
         botonesBomba.add(botonBomba);
+    }
+
+
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public void setNumRows(int numRows) {
+        this.numRows = numRows;
+    }
+
+    public int getNumCols() {
+        return numCols;
+    }
+
+    public void setNumCols(int numCols) {
+        this.numCols = numCols;
+    }
+
+    public int getBoardWidth() {
+        return boardWidth;
+    }
+
+    public void setBoardWidth(int boardWidth) {
+        this.boardWidth = boardWidth;
+    }
+
+    public int getBoardHeight() {
+        return boardHeight;
+    }
+
+    public void setBoardHeight(int boardHeight) {
+        this.boardHeight = boardHeight;
+    }
+
+    public JMenuBar getBarraDeMenu() {
+        return barraDeMenu;
+    }
+
+    public void setBarraDeMenu(JMenuBar barraDeMenu) {
+        this.barraDeMenu = barraDeMenu;
     }
 
     public int getBotonSize() {

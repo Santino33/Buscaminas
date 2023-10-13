@@ -38,6 +38,7 @@ public class BarraDeMenu extends JMenuBar {
         JMenuItem aumentar = new JMenuItem("Aumentar");
         JMenuItem reducir = new JMenuItem("Reducir");
         JCheckBoxMenuItem campoAbierto = new JCheckBoxMenuItem("Campo abierto");
+        campoAbierto.setActionCommand("campo abierto");
         menuOpciones.add(aumentar);
         menuOpciones.add(reducir);
         menuOpciones.add(campoAbierto);
@@ -45,6 +46,7 @@ public class BarraDeMenu extends JMenuBar {
         //Crear menu Ayuda
         JMenu menuAyuda = new JMenu("Ayuda");
         JMenuItem instrucciones = new JMenuItem("Instrucciones");
+        instrucciones.setActionCommand("instrucciones");
         menuAyuda.add(instrucciones);
 
         //Agregar menus a la barra de menu

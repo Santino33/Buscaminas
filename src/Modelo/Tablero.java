@@ -6,19 +6,22 @@ import java.util.Random;
 public class Tablero {
     private Casilla[][] tablero;
     int numeroMinas;
-    int tamanoTablero;
+    int casillasDescubiertas;
+    int rows;
+    int cols;
     ArrayList<Casilla> casillasBomba;
 
-    public Tablero(int tamanoTablero, int numeroMinas) {
-        this.tablero = new Casilla[tamanoTablero][tamanoTablero];
-        this.tamanoTablero = tamanoTablero;
+    public Tablero(int rows,int cols, int numeroMinas) {
+        this.tablero = new Casilla[rows][cols];
+        this.rows = rows;
+        this.cols = cols;
         this.numeroMinas = numeroMinas;
         llenarTablero();
     }
 
     public void llenarTablero(){
-        for (int i = 0; i < tamanoTablero; i++){
-            for (int j = 0; j < tamanoTablero; j++){
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
                 Casilla casilla = new Casilla(false, false, 0, i, j);
                 tablero[i][j] = casilla;
             }
@@ -31,38 +34,43 @@ public class Tablero {
     public ArrayList<Casilla> crearMinas(){
         casillasBomba = new ArrayList<Casilla>();
         Random valor = new Random();
-        for (int i = 0; i < numeroMinas; i++){
-            int posX = valor.nextInt(tamanoTablero);
-            int posY = valor.nextInt(tamanoTablero);
+        while(casillasBomba.size() < numeroMinas){
+            int posX = valor.nextInt(rows);
+            int posY = valor.nextInt(cols);
             Casilla casilla = tablero[posX][posY];
-            casilla.setBomba(true);
-            casilla.setPosicionX(posX);
-            casilla.setPosicionY(posY);
-            casilla.setRadar(0);
-            casillasBomba.add(casilla);
+            if (validarMina(casilla)){
+                casilla.setBomba(true);
+                casilla.setPosicionX(posX);
+                casilla.setPosicionY(posY);
+                casillasBomba.add(casilla);
+            }
         }
         return casillasBomba;
     }
 
+    private boolean validarMina(Casilla casillaBomba){
+        return !casillasBomba.contains(casillaBomba);
+    }
+
     //Metodo que asigna la etiqueta de cada casilla segun la cantidad de minas cerca
     public void crearRadar(){
-        for (int i = 0; i < tamanoTablero; i++){
-            for (int j = 0; j < tamanoTablero; j++){
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
                 int minasCerca = 0;
                 //Verificaciones por cada casilla posible
                 if (i - 1 >= 0 && j - 1 >= 0 ){
                     if (tablero[i -1][j -1].getBomba()) minasCerca++;
                 }
 
-                if (i + 1 < tamanoTablero && j - 1 >= 0 ){
+                if (i + 1 < rows && j - 1 >= 0 ){
                     if (tablero[i+1][j-1].getBomba()) minasCerca++;
                 }
 
-                if (i - 1 >= 0 && j + 1 < tamanoTablero){
+                if (i - 1 >= 0 && j + 1 < cols){
                     if (tablero[i-1][j+1].getBomba()) minasCerca++;
                 }
 
-                if (i + 1 < tamanoTablero && j + 1 < tamanoTablero ){
+                if (i + 1 < rows && j + 1 < cols ){
                     if (tablero[i+1][j+1].getBomba()) minasCerca++;
                 }
 
@@ -70,13 +78,13 @@ public class Tablero {
                     if (tablero[i-1][j].getBomba()) minasCerca++;
                 }
 
-                if (i + 1 < tamanoTablero){
+                if (i + 1 < rows){
                     if (tablero[i+1][j].getBomba()) minasCerca++;
                 }
                 if (j - 1 >= 0 ){
                     if (tablero[i][j-1].getBomba()) minasCerca++;
                 }
-                if (j + 1 < tamanoTablero ){
+                if (j + 1 < cols ){
                     if (tablero[i][j+1].getBomba()) minasCerca++;
                 }
                 tablero[i][j].setRadar(minasCerca);
@@ -117,11 +125,19 @@ public class Tablero {
         this.numeroMinas = numeroMinas;
     }
 
-    public int getTamanoTablero() {
-        return tamanoTablero;
+    public int getRows() {
+        return rows;
     }
 
-    public void setTamanoTablero(int tamanoTablero) {
-        this.tamanoTablero = tamanoTablero;
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public void setCols(int cols) {
+        this.cols = cols;
     }
 }

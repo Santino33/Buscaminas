@@ -6,6 +6,7 @@ public class Casilla {
 
     Boolean descubierto;
     Boolean bomba;
+    Boolean bandera;
     int radar;
     int posicionX;
     int posicionY;
@@ -14,8 +15,17 @@ public class Casilla {
         this.descubierto = descubierto;
         this.bomba = bomba;
         this.radar = etiqueta;
+        this.bandera = false;
         this.posicionX = posicionX;
         this.posicionY = posicionY;
+    }
+
+    public Boolean getBandera() {
+        return bandera;
+    }
+
+    public void setBandera(Boolean bandera) {
+        this.bandera = bandera;
     }
 
     public void crearMina(){
