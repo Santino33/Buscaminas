@@ -1,7 +1,5 @@
 package Vista;
 
-import Modelo.Casilla;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -57,7 +55,6 @@ public class SwingVista extends JFrame {
                 Boton boton = new Boton(i, j);
                 boton.setSize(botonSize, botonSize);
                 tablero[i][j] = boton;
-
                 boardPanel.add(boton);
             }
         }
@@ -96,11 +93,18 @@ public class SwingVista extends JFrame {
         }
     }
 
+    public void deshabilitarBotones(){
+        for (int i =0; i<tablero.length; i++){
+            for (int j =0; j<tablero[i].length; j++){
+                tablero[i][j].setEnabled(false);
+            }
+        }
+    }
+
     public void agregarBotonBomba(int posX, int posY){
         Boton botonBomba = tablero[posX][posY];
         botonesBomba.add(botonBomba);
     }
-
 
     public int getNumRows() {
         return numRows;

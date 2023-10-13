@@ -6,7 +6,7 @@ import java.util.Random;
 public class Tablero {
     private Casilla[][] tablero;
     int numeroMinas;
-    int casillasDescubiertas;
+    int casillasPorDescubrir;
     int rows;
     int cols;
     ArrayList<Casilla> casillasBomba;
@@ -16,6 +16,7 @@ public class Tablero {
         this.rows = rows;
         this.cols = cols;
         this.numeroMinas = numeroMinas;
+        this.casillasPorDescubrir = rows*cols;
         llenarTablero();
     }
 
@@ -90,6 +91,18 @@ public class Tablero {
                 tablero[i][j].setRadar(minasCerca);
             }
         }
+    }
+
+
+    public void reducirCasillasPorDescubrir(){
+        casillasPorDescubrir -= 1;
+    }
+    public int getCasillasPorDescubrir() {
+        return casillasPorDescubrir;
+    }
+
+    public void setCasillasPorDescubrir(int casillasPorDescubrir) {
+        this.casillasPorDescubrir = casillasPorDescubrir;
     }
 
     public boolean getBombaCasilla(int posX, int posY){

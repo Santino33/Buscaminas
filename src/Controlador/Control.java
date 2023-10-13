@@ -18,16 +18,18 @@ public class Control implements ActionListener, MouseListener{
     private Buscaminas modelo;
 
     public Control() {
-        this.vista = new SwingVista();
-        this.ventanaFin = new VentanaFin();
-        this.modelo = new Buscaminas(2);
+
     }
 
     public void inicio(){
+        this.vista = new SwingVista();
+        this.ventanaFin = new VentanaFin();
+        this.modelo = new Buscaminas(2);
         modelo.getTablero().llenarTablero();
         asignarCasillasBomba();
         agregarListenersBotones();
         agregarListenerBarra();
+        agregarListenerVentanaFin();
     }
 
 
@@ -55,21 +57,19 @@ public class Control implements ActionListener, MouseListener{
     }
 
     private boolean evaluarVictoria(){
-        int casillasReveladas = 0;
-        for (int i = 0; i < modelo.getTablero().getRows();i++){
-            for (int j = 0; j < modelo.getTablero().getCols();j++){
-                Casilla casilla = modelo.getTablero().getCasilla(i, j);
-                if (casilla.getDescubierto()) casillasReveladas++;
-            }
-        }
-        if (casillasReveladas == modelo.getTablero().getNumeroMinas()) modelo.setVictoria(true);
-        return modelo.isVictoria();
+        System.out.println("CP "+modelo.getTablero().getCasillasPorDescubrir() +" -- MN: " + modelo.getTablero().getNumeroMinas());
+        return modelo.getTablero().getCasillasPorDescubrir() == modelo.getTablero().getNumeroMinas();
     }
     private boolean evaluarDerrota(){
         return modelo.isDerrota();
     }
 
-
+    private void reiniciarPrograma(){
+        Control nuevoControl = new Control();
+        nuevoControl.inicio();
+        vista.dispose();
+        ventanaFin.dispose();
+    }
     @Override
     public void mousePressed(MouseEvent e) {
         Boton botonPresionado = (Boton) e.getSource();
@@ -81,6 +81,7 @@ public class Control implements ActionListener, MouseListener{
         if (e.getButton() == MouseEvent.BUTTON1){
             Casilla casillaPresionada = modelo.getTablero().getCasilla(posX, posY);
             casillaPresionada.setDescubierto(true);
+            modelo.getTablero().reducirCasillasPorDescubrir();
             if (vista.getBotonesBomba().contains(botonPresionado)){
                 vista.revelarBomba(posX, posY);
                 modelo.setDerrota(true);
@@ -105,16 +106,20 @@ public class Control implements ActionListener, MouseListener{
         //Evaluar fin del juego
         if (evaluarDerrota()){
             ventanaFin.setTitle("Has perdido");
-            return;
+            vista.setEnabled(false);
         }
         if (evaluarVictoria()){
             ventanaFin.setTitle("Felicidades, has ganado");
-            return;
+            vista.setEnabled(false);
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("jugar")) {
+            reiniciarPrograma();
+        }
+        if (e.getActionCommand().equals("salir")) System.exit(0);
 
     }
 
