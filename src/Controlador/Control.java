@@ -65,6 +65,10 @@ public class Control implements ActionListener, MouseListener {
         }
     }
 
+    private void revelarCampoAbierto(boolean isCampo){
+
+    }
+
     private boolean evaluarVictoria() {
         return modelo.getTablero().getCasillasPorDescubrir() == modelo.getTablero().getNumeroMinas();
     }
@@ -96,7 +100,12 @@ public class Control implements ActionListener, MouseListener {
                 vista.revelarBomba(posX, posY);
                 modelo.setDerrota(true);
             } else {
-                vista.revelarBoton(posX, posY, casillaPresionada.getRadar());
+                if (casillaPresionada.getRadar() == 0){
+                    vista.revelarBoton(posX, posY, casillaPresionada.getRadar());
+                }
+                else {
+                    vista.revelarBoton(posX, posY, casillaPresionada.getRadar());
+                }
             }
         }
 

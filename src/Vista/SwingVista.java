@@ -80,7 +80,8 @@ public class SwingVista extends JFrame {
 
     public void revelarBoton(int posX, int posY, int radar){
         Boton botonPresionado = tablero[posX][posY];
-        botonPresionado.setText(""+radar);
+        if (radar == 0) botonPresionado.setText("");
+        else botonPresionado.setText(""+radar);
         botonPresionado.setBackground(Color.lightGray);
         botonPresionado.setEnabled(false);
     }

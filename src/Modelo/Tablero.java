@@ -94,6 +94,7 @@ public class Tablero {
     }
 
 
+
     public void reducirCasillasPorDescubrir(){
         casillasPorDescubrir -= 1;
     }
