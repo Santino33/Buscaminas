@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.Objects;
 
-public class Control implements ActionListener, MouseListener {
+public class Control implements ActionListener, MouseListener, IControl {
 
     private SwingVista vista;
     private VentanaFin ventanaFin;
@@ -34,55 +34,6 @@ public class Control implements ActionListener, MouseListener {
         agregarListenerVentanaFin();
     }
 
-
-    private void agregarListenerBarra() {
-        barraDeMenu.getDificultadIntermedio().addActionListener(this);
-        barraDeMenu.getDificultadDificil().addActionListener(this);
-        barraDeMenu.getDificultadExperto().addActionListener(this);
-        barraDeMenu.getInstrucciones().addActionListener(this);
-        barraDeMenu.getCampoAbierto().addActionListener(this);
-        instrucciones.getCerrar().addActionListener(this);
-    }
-
-    private void agregarListenerVentanaFin() {
-        ventanaFin.getAceptarButton().addActionListener(this);
-        ventanaFin.getSalirButton().addActionListener(this);
-    }
-
-    private void agregarListenersBotones() {
-        for (int i = 0; i < vista.getTablero().length; i++) {
-            for (int j = 0; j < vista.getTablero()[i].length; j++) {
-                vista.getTablero()[i][j].addMouseListener(this);
-            }
-        }
-    }
-
-    private void asignarCasillasBomba() {
-        for (Casilla casillaBomba : modelo.getTablero().getCasillasBomba()) {
-            int posX = casillaBomba.getPosicionX();
-            int posY = casillaBomba.getPosicionY();
-            vista.agregarBotonBomba(posX, posY);
-        }
-    }
-
-    private void revelarCampoAbierto(boolean isCampo){
-
-    }
-
-    private boolean evaluarVictoria() {
-        return modelo.getTablero().getCasillasPorDescubrir() == modelo.getTablero().getNumeroMinas();
-    }
-
-    private boolean evaluarDerrota() {
-        return modelo.isDerrota();
-    }
-
-    private void reiniciarPrograma(int dificultad) {
-        Control nuevoControl = new Control();
-        nuevoControl.inicio(dificultad);
-        vista.dispose();
-        ventanaFin.dispose();
-    }
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -165,5 +116,62 @@ public class Control implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void agregarListenerBarra() {
+        barraDeMenu.getDificultadIntermedio().addActionListener(this);
+        barraDeMenu.getDificultadDificil().addActionListener(this);
+        barraDeMenu.getDificultadExperto().addActionListener(this);
+        barraDeMenu.getInstrucciones().addActionListener(this);
+        barraDeMenu.getCampoAbierto().addActionListener(this);
+        instrucciones.getCerrar().addActionListener(this);
+    }
+
+    @Override
+    public void agregarListenerVentanaFin() {
+        ventanaFin.getAceptarButton().addActionListener(this);
+        ventanaFin.getSalirButton().addActionListener(this);
+    }
+
+    @Override
+    public void agregarListenersBotones() {
+        for (int i = 0; i < vista.getTablero().length; i++) {
+            for (int j = 0; j < vista.getTablero()[i].length; j++) {
+                vista.getTablero()[i][j].addMouseListener(this);
+            }
+        }
+    }
+
+    @Override
+    public void asignarCasillasBomba() {
+        for (Casilla casillaBomba : modelo.getTablero().getCasillasBomba()) {
+            int posX = casillaBomba.getPosicionX();
+            int posY = casillaBomba.getPosicionY();
+            vista.agregarBotonBomba(posX, posY);
+        }
+    }
+
+    @Override
+    public void revelarCampoAbierto(boolean isCampo) {
+
+    }
+
+    @Override
+    public boolean evaluarVictoria() {
+        return modelo.getTablero().getCasillasPorDescubrir() == modelo.getTablero().getNumeroMinas();
+    }
+
+    @Override
+    public boolean evaluarDerrota() {
+        return modelo.isDerrota();
+    }
+
+    @Override
+    public void reiniciarPrograma(int dificultad) {
+        Control nuevoControl = new Control();
+        nuevoControl.inicio(dificultad);
+        vista.dispose();
+        ventanaFin.dispose();
     }
 }
