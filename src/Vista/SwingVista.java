@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class SwingVista extends JFrame {
+public class SwingVista extends JFrame implements IVista {
 
     private int botonSize;
     private int numRows;
@@ -64,65 +64,6 @@ public class SwingVista extends JFrame {
         crearBotones();
         this.setVisible(true);
         botonesBomba = new ArrayList<>();
-    }
-
-
-    public void crearBotones(){
-        for (int i = 0; i < numRows; i++){
-            for (int j = 0; j < numCols; j++){
-                Boton boton = new Boton(i, j);
-                boton.setSize(botonSize, botonSize);
-                tablero[i][j] = boton;
-                boardPanel.add(boton);
-            }
-        }
-    }
-
-    public void revelarBoton(int posX, int posY, int radar){
-        Boton botonPresionado = tablero[posX][posY];
-        if (radar == 0) botonPresionado.setText("");
-        else botonPresionado.setText(""+radar);
-        botonPresionado.setBackground(Color.lightGray);
-        botonPresionado.setEnabled(false);
-    }
-    public void ponerBandera(int posX, int posY){
-        Boton botonPresionado = tablero[posX][posY];
-        botonPresionado.setText("🚩");
-        botonPresionado.setBackground(Color.lightGray);
-    }
-    public void quitarBandera(int posX, int posY){
-        Boton botonPresionado = tablero[posX][posY];
-        botonPresionado.setText("❓");
-        botonPresionado.setBackground(Color.lightGray);
-
-    }
-
-    public void revelarBomba(int posX, int posY){
-        Boton botonPresionado = tablero[posX][posY];
-        botonPresionado.setText("💣");
-        botonPresionado.setBackground(Color.RED);
-        botonPresionado.setEnabled(false);
-        revelarBombas();
-    }
-
-    public void revelarBombas(){
-        for (Boton boton : botonesBomba){
-            boton.setText("💣");
-            boton.setEnabled(false);
-        }
-    }
-
-    public void deshabilitarBotones(){
-        for (int i =0; i<tablero.length; i++){
-            for (int j =0; j<tablero[i].length; j++){
-                tablero[i][j].setEnabled(false);
-            }
-        }
-    }
-
-    public void agregarBotonBomba(int posX, int posY){
-        Boton botonBomba = tablero[posX][posY];
-        botonesBomba.add(botonBomba);
     }
 
     public int getNumRows() {
@@ -189,4 +130,70 @@ public class SwingVista extends JFrame {
         this.tablero = tablero;
     }
 
+    @Override
+    public void crearBotones() {
+        for (int i = 0; i < numRows; i++){
+            for (int j = 0; j < numCols; j++){
+                Boton boton = new Boton(i, j);
+                boton.setSize(botonSize, botonSize);
+                tablero[i][j] = boton;
+                boardPanel.add(boton);
+            }
+        }
+    }
+
+    @Override
+    public void revelarBoton(int posX, int posY, int radar) {
+        Boton botonPresionado = tablero[posX][posY];
+        if (radar == 0) botonPresionado.setText("");
+        else botonPresionado.setText(""+radar);
+        botonPresionado.setBackground(Color.lightGray);
+        botonPresionado.setEnabled(false);
+    }
+
+    @Override
+    public void ponerBandera(int posX, int posY) {
+        Boton botonPresionado = tablero[posX][posY];
+        botonPresionado.setText("🚩");
+        botonPresionado.setBackground(Color.lightGray);
+    }
+
+    @Override
+    public void quitarBandera(int posX, int posY) {
+        Boton botonPresionado = tablero[posX][posY];
+        botonPresionado.setText("❓");
+        botonPresionado.setBackground(Color.lightGray);
+    }
+
+    @Override
+    public void revelarBomba(int posX, int posY) {
+        Boton botonPresionado = tablero[posX][posY];
+        botonPresionado.setText("💣");
+        botonPresionado.setBackground(Color.RED);
+        botonPresionado.setEnabled(false);
+        revelarBombas();
+    }
+
+    @Override
+    public void revelarBombas() {
+        for (Boton boton : botonesBomba){
+            boton.setText("💣");
+            boton.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void deshabilitarBotones() {
+        for (int i =0; i<tablero.length; i++){
+            for (int j =0; j<tablero[i].length; j++){
+                tablero[i][j].setEnabled(false);
+            }
+        }
+    }
+
+    @Override
+    public void agregarBotonBomba(int posX, int posY) {
+        Boton botonBomba = tablero[posX][posY];
+        botonesBomba.add(botonBomba);
+    }
 }
