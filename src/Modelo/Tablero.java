@@ -3,7 +3,7 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Tablero {
+public class Tablero implements ITablero{
     private Casilla[][] tablero;
     private int numeroMinas;
     private int casillasPorDescubrir;
@@ -20,7 +20,9 @@ public class Tablero {
         llenarTablero();
     }
 
-    public void llenarTablero(){
+
+    @Override
+    public void llenarTablero() {
         for (int i = 0; i < rows; i++){
             for (int j = 0; j < cols; j++){
                 Casilla casilla = new Casilla(false, false, 0, i, j);
@@ -29,10 +31,11 @@ public class Tablero {
         }
         crearMinas();
         crearRadar();
+
     }
 
-
-    public ArrayList<Casilla> crearMinas(){
+    @Override
+    public ArrayList<Casilla> crearMinas() {
         casillasBomba = new ArrayList<Casilla>();
         Random valor = new Random();
         while(casillasBomba.size() < numeroMinas){
@@ -49,12 +52,14 @@ public class Tablero {
         return casillasBomba;
     }
 
-    private boolean validarMina(Casilla casillaBomba){
+    @Override
+    public boolean validarMina(Object casillaBomba) {
         return !casillasBomba.contains(casillaBomba);
     }
 
     //Metodo que asigna la etiqueta de cada casilla segun la cantidad de minas cerca
-    public void crearRadar(){
+    @Override
+    public void crearRadar() {
         for (int i = 0; i < rows; i++){
             for (int j = 0; j < cols; j++){
                 int minasCerca = 0;
@@ -93,14 +98,16 @@ public class Tablero {
         }
     }
 
-
-
-    public void reducirCasillasPorDescubrir(){
+    @Override
+    public void reducirCasillasPorDescubrir() {
         casillasPorDescubrir -= 1;
     }
+
+    @Override
     public int getCasillasPorDescubrir() {
         return casillasPorDescubrir;
     }
+
 
     public void setCasillasPorDescubrir(int casillasPorDescubrir) {
         this.casillasPorDescubrir = casillasPorDescubrir;
